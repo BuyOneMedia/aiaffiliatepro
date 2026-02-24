@@ -17,6 +17,7 @@ jobs:
           cache: 'npm'
 
       - run: npm ci
+
       - run: npm run build
 
       - name: Setup SSH
@@ -34,12 +35,11 @@ jobs:
             --exclude='.env' \
             ./ root@178.156.209.250:/var/www/aiaffiliatepro/
 
-      - name: Restart app
-        run: |
-          ssh root@178.156.209.250 << 'EOF'
-            cd /var/www/aiaffiliatepro
-            npm ci
-            npm run db:push || true
-            pm2 reload ecosystem.config.cjs --env production || pm2 start ecosystem.config.cjs --env production
-            pm2 save
-          EOF
+      - name: Install dependencies
+        run: ssh -T root@178.156.209.250 "cd /var/www/aiaffiliatepro && npm ci"
+
+      - name: Run migrations
+        run: ssh -T root@178.156.209.250 "cd /var/www/aiaffiliatepro && npm run db:push || true"
+
+      - name: Restart PM2
+        run: ssh -T root@178.156.209.250 "pm2 reload ecosystem.config.cjs --env production --update-env || pm2 start /var/www/aiaffiliatepro/ecosystem.config.cjs --env production && pm2 save"
