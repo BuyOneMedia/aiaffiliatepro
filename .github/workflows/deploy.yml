@@ -38,7 +38,7 @@ jobs:
         run: |
           ssh root@178.156.209.250 << 'EOF'
             cd /var/www/aiaffiliatepro
-            npm ci --omit=dev
+            npm ci
             npm run db:push || true
             pm2 reload ecosystem.config.cjs --env production || pm2 start ecosystem.config.cjs --env production
             pm2 save
