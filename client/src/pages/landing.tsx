@@ -724,10 +724,8 @@ export default function Landing() {
                   ⚡ <span className="font-semibold">BONUS:</span> Start today and get 50% off your first 3 months + free premium setup (saves you $500)
                 </p>
               </div>
-            </div>
-          </div>
+</div>
         </div>
-
         <footer className="container mx-auto px-4 py-8 mt-12 border-t border-slate-800">
           <div className="flex flex-col md:flex-row justify-between items-center text-slate-400">
             <p>&copy; 2024 AI Affiliate Pro. All rights reserved.</p>
